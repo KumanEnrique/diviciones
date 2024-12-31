@@ -58,7 +58,7 @@ class Divicion {
     divicion = []
     entre(x) {
         let i = 0
-        while(i<15){
+        while(i<100){
             const divisor = x
             const dividendo = Math.floor(Math.random() *  1000) + 1
             const resultado = dividendo/divisor //cociente
