@@ -94,6 +94,6 @@ formulario.addEventListener('submit',(e)=>{
     e.preventDefault()
     pizarra.innerHTML = ''
     const columna = new UI()
-    const diviciones = columna.repetir(15)
+    const diviciones = columna.repetir(100)
     pizarra.appendChild(diviciones)
 })
