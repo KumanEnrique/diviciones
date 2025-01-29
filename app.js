@@ -1,9 +1,9 @@
-
 const pizarra = document.getElementsByClassName('row')[1]
 const formulario = document.getElementById('formulario')
 const numerosRandoms = []
 const checkbox = document.getElementsByClassName('form-check-input')
-
+const repeticiones = 100
+const maxDividendo = document.getElementById('maxDividendo')
 class UI {
     checkboxs = []
     divicion = new Divicion()
@@ -23,8 +23,8 @@ class UI {
         columna.appendChild(div2)
         return columna
     }
-    repetir(repeticion){
-        this.repetirDivicion()
+    repetir(repeticion,maxDividendo){
+        this.repetirDivicion(maxDividendo)
         this.divicion.shuffleArray(this.divicion.divicion)
         const fragmento = document.createDocumentFragment()
         for(let i = 0;i <repeticion;i++){
@@ -47,20 +47,21 @@ class UI {
         elemento.className = clase
         return elemento
     }
-    repetirDivicion() {
+    repetirDivicion(maxDividendo) {
         this.checkboxs.forEach((value)=>{
-            this.divicion.entre(value)
+            this.divicion.entre(value,maxDividendo)
         })
     }
 }
 class Divicion {
     constructor() {}
     divicion = []
-    entre(x) {
+    entre(x,maxDividendo) {
         let i = 0
-        while(i<100){
+        console.log(maxDividendo)
+        while(i<repeticiones){
             const divisor = x
-            const dividendo = Math.floor(Math.random() *  1000) + 1
+            const dividendo = Math.floor(Math.random() * maxDividendo) + 1
             const resultado = dividendo/divisor //cociente
             const resto = dividendo%divisor //residuo
             if(resto == 0){
@@ -81,9 +82,7 @@ class Divicion {
         return array;
     }
 }
-/* const columna = new UI()
-const sas = columna.repetir(12)
-pizarra.appendChild(sas) */
+
 pizarra.addEventListener('click',(e)=>{
     if(e.target.tagName == 'DIV'){
         const resultado = e.target.children[1].children[0]
@@ -94,6 +93,6 @@ formulario.addEventListener('submit',(e)=>{
     e.preventDefault()
     pizarra.innerHTML = ''
     const columna = new UI()
-    const diviciones = columna.repetir(100)
+    const diviciones = columna.repetir(repeticiones,Number(maxDividendo.value))
     pizarra.appendChild(diviciones)
 })
